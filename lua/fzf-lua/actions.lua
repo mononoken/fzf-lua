@@ -407,7 +407,7 @@ M.buf_del = function(selected, opts)
     local entry = path.entry_to_file(sel, opts)
     local force = not utils.buffer_is_dirty(entry.bufnr, true, false)
     if entry.bufnr then
-      vim.api.nvim_buf_delete(entry.bufnr, { force = force })
+      pcall(vim.api.nvim_buf_delete, entry.bufnr, { force = force })
     end
   end
 end
