@@ -405,8 +405,9 @@ M.buf_switch_or_edit = M.file_switch_or_edit
 M.buf_del = function(selected, opts)
   for _, sel in ipairs(selected) do
     local entry = path.entry_to_file(sel, opts)
-    if entry.bufnr and not utils.buffer_is_dirty(entry.bufnr, true, false) then
-      vim.api.nvim_buf_delete(entry.bufnr, { force = true })
+    local force = not utils.buffer_is_dirty(entry.bufnr, true, false)
+    if entry.bufnr then
+      vim.api.nvim_buf_delete(entry.bufnr, { force = force })
     end
   end
 end
